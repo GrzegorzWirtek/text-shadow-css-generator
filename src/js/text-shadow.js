@@ -19,33 +19,33 @@ export default class{
         this.viewCode();
         this.zipPosition();
         this.createShadow();
-
-        this.xZipFn = (e)=> this.zipMove(e, this.xZip, 'xFactor');
-        this.xZip.addEventListener('mousedown', ()=>window.addEventListener('mousemove', this.xZipFn));
+        let x = 0;
+        this.xZipFn = (e)=> this.zipMove(e, x, this.xZip, 'xFactor');
+        this.xZip.addEventListener('mousedown', (e)=>{window.addEventListener('mousemove', this.xZipFn), x = e.offsetX});
         window.addEventListener('mouseup',()=>window.removeEventListener('mousemove', this.xZipFn));    
-        this.xZipMobile = (e)=> this.zipMoveMobile(e, this.xZip, 'xFactor');
-        this.xZip.addEventListener('touchstart', ()=>window.addEventListener('touchmove', this.xZipMobile));
+        this.xZipMobile = (e)=> this.zipMoveMobile(e, x, this.xZip, 'xFactor');
+        this.xZip.addEventListener('touchstart', (e)=>{window.addEventListener('touchmove', this.xZipMobile), x = e.targetTouches[0].clientX-e.target.getBoundingClientRect().x});
         this.xZip.addEventListener('touchend', ()=>window.removeEventListener('touchmove', this.xZipMobile));
 
-        this.yZipFn = (e)=> this.zipMove(e, this.yZip, 'yFactor'); 
-        this.yZip.addEventListener('mousedown', ()=>window.addEventListener('mousemove', this.yZipFn));
+        this.yZipFn = (e)=> this.zipMove(e, x, this.yZip, 'yFactor'); 
+        this.yZip.addEventListener('mousedown', (e)=>{window.addEventListener('mousemove', this.yZipFn), x = e.offsetX});
         window.addEventListener('mouseup',()=>window.removeEventListener('mousemove', this.yZipFn));
-        this.yZipMobile = (e)=> this.zipMoveMobile(e, this.yZip, 'yFactor');
-        this.yZip.addEventListener('touchstart', ()=>window.addEventListener('touchmove', this.yZipMobile));
+        this.yZipMobile = (e)=> this.zipMoveMobile(e, x, this.yZip, 'yFactor');
+        this.yZip.addEventListener('touchstart', (e)=>{window.addEventListener('touchmove', this.yZipMobile), x = e.targetTouches[0].clientX-e.target.getBoundingClientRect().x});
         this.yZip.addEventListener('touchend', ()=>window.removeEventListener('touchmove', this.yZipMobile));
 
-        this.blurFn = (e)=> this.zipMove(e, this.blur, 'blurFactor');
-        this.blur.addEventListener('mousedown', ()=>window.addEventListener('mousemove', this.blurFn));
+        this.blurFn = (e)=> this.zipMove(e, x, this.blur, 'blurFactor');
+        this.blur.addEventListener('mousedown', (e)=>{window.addEventListener('mousemove', this.blurFn), x = e.offsetX});
         window.addEventListener('mouseup',()=>window.removeEventListener('mousemove', this.blurFn));
-        this.blurMobile = (e)=> this.zipMoveMobile(e, this.blur, 'blurFactor');
-        this.blur.addEventListener('touchstart', ()=>window.addEventListener('touchmove', this.blurMobile)); 
+        this.blurMobile = (e)=> this.zipMoveMobile(e, x, this.blur, 'blurFactor');
+        this.blur.addEventListener('touchstart', (e)=>{window.addEventListener('touchmove', this.blurMobile), x = e.targetTouches[0].clientX-e.target.getBoundingClientRect().x}); 
         this.blur.addEventListener('touchend', ()=>window.removeEventListener('touchmove', this.blurMobile)); 
 
-        this.opacityFn = (e)=> this.zipMove(e, this.opacity, 'opacityFactor');
-        this.opacity.addEventListener('mousedown', ()=>window.addEventListener('mousemove', this.opacityFn));
+        this.opacityFn = (e)=> this.zipMove(e, x, this.opacity, 'opacityFactor');
+        this.opacity.addEventListener('mousedown', (e)=>{window.addEventListener('mousemove', this.opacityFn), x = e.offsetX});
         window.addEventListener('mouseup',()=>window.removeEventListener('mousemove', this.opacityFn)); 
-        this.opacityMobile = (e)=> this.zipMoveMobile(e, this.opacity, 'opacityFactor');
-        this.opacity.addEventListener('touchstart', ()=>window.addEventListener('touchmove', this.opacityMobile)); 
+        this.opacityMobile = (e)=> this.zipMoveMobile(e,x, this.opacity, 'opacityFactor');
+        this.opacity.addEventListener('touchstart', (e)=>{window.addEventListener('touchmove', this.opacityMobile), x = e.targetTouches[0].clientX-e.target.getBoundingClientRect().x}); 
         this.opacity.addEventListener('touchend', ()=>window.removeEventListener('touchmove', this.opacityMobile)); 
     }
 
@@ -56,24 +56,24 @@ export default class{
         this.opacity.style.transform = `translateX(${parseInt(this.areaActualWidth)*this.factors.opacityFactor}px)`; 
     }
 
-    zipMove(e, element, factor){
+    zipMove(e, x, element, factor){
         let position = e.clientX-element.parentNode.offsetLeft;
-        let areaWidth =parseInt(this.areaActualWidth)- 40;
+        let areaWidth =parseInt(this.areaActualWidth)- (40-x);
         if(position < 0) position = 0;
         if(position >areaWidth) position = areaWidth;
         this.factors[factor] = position/areaWidth;
-        element.style.transform = `translateX(${areaWidth*(position/areaWidth)}px)`;
+        element.style.transform = `translateX(${areaWidth*(position/areaWidth)-x}px)`;
         this.calculateShadowParameters();   
     }
 
-    zipMoveMobile(e, element, factor){
+    zipMoveMobile(e, x, element, factor){
         let position = e.touches[0].clientX-element.parentNode.offsetLeft;
-        let areaWidth =parseInt(this.areaActualWidth)- 12;
+        let areaWidth =parseInt(this.areaActualWidth)- (40-x);
         if(position < 0) position = 0;
         if(position >areaWidth) position = areaWidth;
         this.factors[factor] = position/areaWidth;
-        element.style.transform = `translateX(${areaWidth*(position/areaWidth)}px)`;
-        this.calculateShadowParameters();   
+        element.style.transform = `translateX(${areaWidth*(position/areaWidth)-x}px)`;
+        this.calculateShadowParameters();
     }
  
     onResize(){
