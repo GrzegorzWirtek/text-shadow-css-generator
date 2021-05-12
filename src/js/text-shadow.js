@@ -16,6 +16,7 @@ export default class{
             blurFactor: 0.068,
             opacityFactor: 0.5
         }
+        this.widthZipButton = 40;
         this.viewCode();
         this.zipPosition();
         this.createShadow();
@@ -50,15 +51,15 @@ export default class{
     }
 
     zipPosition(){  
-        this.xZip.style.transform = `translateX(${parseInt(this.areaActualWidth)*this.factors.xFactor}px)`; 
-        this.yZip.style.transform = `translateX(${parseInt(this.areaActualWidth)*this.factors.yFactor}px)`; 
-        this.blur.style.transform = `translateX(${parseInt(this.areaActualWidth)*this.factors.blurFactor}px)`; 
-        this.opacity.style.transform = `translateX(${parseInt(this.areaActualWidth)*this.factors.opacityFactor}px)`; 
+        this.xZip.style.transform = `translateX(${(parseInt(this.areaActualWidth)-this.widthZipButton)*this.factors.xFactor}px)`; 
+        this.yZip.style.transform = `translateX(${(parseInt(this.areaActualWidth)-this.widthZipButton)*this.factors.yFactor}px)`; 
+        this.blur.style.transform = `translateX(${(parseInt(this.areaActualWidth)-this.widthZipButton)*this.factors.blurFactor}px)`; 
+        this.opacity.style.transform = `translateX(${(parseInt(this.areaActualWidth)-this.widthZipButton)*this.factors.opacityFactor}px)`; 
     }
 
     zipMove(e, x, element, factor){
         let position = e.clientX-element.parentNode.offsetLeft;
-        let areaWidth =parseInt(this.areaActualWidth)-(40-x);
+        let areaWidth =parseInt(this.areaActualWidth)-(this.widthZipButton-x);
         if(position-x < 0) position = 0+x;
         if(position >areaWidth) position = areaWidth;
         this.factors[factor] = (position-x)/(areaWidth-x);
@@ -68,7 +69,7 @@ export default class{
 
     zipMoveMobile(e, x, element, factor){
         let position = e.touches[0].clientX-element.parentNode.offsetLeft;
-        let areaWidth =parseInt(this.areaActualWidth)-(40-x);
+        let areaWidth =parseInt(this.areaActualWidth)-(this.widthZipButton-x);
         if(position-x < 0) position = 0+x;
         if(position >areaWidth) position = areaWidth;
         this.factors[factor] = (position-x)/(areaWidth-x);
@@ -82,8 +83,8 @@ export default class{
     }
 
     calculateShadowParameters(){
-        let x = ((this.factors.xFactor*40-20)).toFixed(1);
-        let y = (this.factors.yFactor*-40+20).toFixed(1);
+        let x = ((this.factors.xFactor*this.widthZipButton-20)).toFixed(1);
+        let y = (this.factors.yFactor*-this.widthZipButton+20).toFixed(1);
         let bl = ((this.factors.blurFactor*30)).toFixed(1);
         let op = (1-this.factors.opacityFactor*1).toFixed(2);
         this.createShadow(x,y, bl,op);        
