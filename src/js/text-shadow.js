@@ -87,7 +87,7 @@ export default class{
         let y = (this.factors.yFactor*-this.widthZipButton+20).toFixed(1);
         let bl = ((this.factors.blurFactor*30)).toFixed(1);
         let op = (1-this.factors.opacityFactor*1).toFixed(2);
-        this.createShadow(x,y, bl,op);        
+        this.createShadow(x, y, bl, op);        
     }
     createShadow(x=4,y=-4,bl=2,op=0.50){
         this.textArea.style.textShadow =`${x}px ${y}px ${bl}px rgba(0, 0, 0, ${op})`;
