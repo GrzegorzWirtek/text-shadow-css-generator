@@ -58,12 +58,12 @@ export default class{
 
     zipMove(e, x, element, factor){
         let position = e.clientX-element.parentNode.offsetLeft;
-        let areaWidth =parseInt(this.areaActualWidth)- (40-x);
-        if(position < 0) position = 0;
+        let areaWidth =parseInt(this.areaActualWidth)-(40-x);
+        if(position-x < 0) position = 0+x;
         if(position >areaWidth) position = areaWidth;
-        this.factors[factor] = position/areaWidth;
+        this.factors[factor] = (position-x)/areaWidth;
         element.style.transform = `translateX(${areaWidth*(position/areaWidth)-x}px)`;
-        this.calculateShadowParameters();   
+        this.calculateShadowParameters(); 
     }
 
     zipMoveMobile(e, x, element, factor){
@@ -106,3 +106,4 @@ export default class{
        document.execCommand('copy');
     }
 }
+
