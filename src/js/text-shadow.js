@@ -68,10 +68,10 @@ export default class{
 
     zipMoveMobile(e, x, element, factor){
         let position = e.touches[0].clientX-element.parentNode.offsetLeft;
-        let areaWidth =parseInt(this.areaActualWidth)- (40-x);
-        if(position < 0) position = 0;
+        let areaWidth =parseInt(this.areaActualWidth)-(40-x);
+        if(position < 0) position = 0+x;
         if(position >areaWidth) position = areaWidth;
-        this.factors[factor] = position/areaWidth;
+        this.factors[factor] = (position-x)/areaWidth;
         element.style.transform = `translateX(${areaWidth*(position/areaWidth)-x}px)`;
         this.calculateShadowParameters();
     }
