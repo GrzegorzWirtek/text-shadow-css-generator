@@ -42,9 +42,14 @@
 .text-shadow__text-area {
     display: flex;
     justify-content: center;
-    height: 16vh;
+    height: 18vh;
     background-color: white;
     font-size: 1.8rem;
+    overflow: hidden;
+
+    @media(orientation: landscape) {
+        height: 24vh;
+    }
 
     @media(min-height:500px) {
         height: 20vh;

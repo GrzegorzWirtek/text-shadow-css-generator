@@ -61,9 +61,9 @@ export default class{
         let areaWidth =parseInt(this.areaActualWidth)-(40-x);
         if(position-x < 0) position = 0+x;
         if(position >areaWidth) position = areaWidth;
-        this.factors[factor] = (position-x)/areaWidth;
+        this.factors[factor] = (position-x)/(areaWidth-x);
         element.style.transform = `translateX(${areaWidth*(position/areaWidth)-x}px)`;
-        this.calculateShadowParameters(); 
+        this.calculateShadowParameters();   
     }
 
     zipMoveMobile(e, x, element, factor){
@@ -71,7 +71,7 @@ export default class{
         let areaWidth =parseInt(this.areaActualWidth)-(40-x);
         if(position-x < 0) position = 0+x;
         if(position >areaWidth) position = areaWidth;
-        this.factors[factor] = (position-x)/areaWidth;
+        this.factors[factor] = (position-x)/(areaWidth-x);
         element.style.transform = `translateX(${areaWidth*(position/areaWidth)-x}px)`;
         this.calculateShadowParameters();
     }
@@ -82,11 +82,11 @@ export default class{
     }
 
     calculateShadowParameters(){
-        let x = (this.factors.xFactor*40-20).toFixed(1);
+        let x = ((this.factors.xFactor*40-20)).toFixed(1);
         let y = (this.factors.yFactor*-40+20).toFixed(1);
-        let bl = (this.factors.blurFactor*30).toFixed(1);
+        let bl = ((this.factors.blurFactor*30)).toFixed(1);
         let op = (1-this.factors.opacityFactor*1).toFixed(2);
-        this.createShadow(x,y, bl,op);    
+        this.createShadow(x,y, bl,op);        
     }
     createShadow(x=4,y=-4,bl=2,op=0.50){
         this.textArea.style.textShadow =`${x}px ${y}px ${bl}px rgba(0, 0, 0, ${op})`;
