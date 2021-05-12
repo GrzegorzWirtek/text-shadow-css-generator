@@ -11,8 +11,8 @@ export default class{
         window.addEventListener('resize', ()=>this.onResize());
         this.areaActualWidth = getComputedStyle(this.xArea).width;
         this.factors ={
-            xFactor: 0.6,
-            yFactor: 0.6,
+            xFactor: 0.64,
+            yFactor: 0.37,
             blurFactor: 0.068,
             opacityFactor: 0.5
         }
@@ -89,9 +89,13 @@ export default class{
         let op = (1-this.factors.opacityFactor*1).toFixed(2);
         this.createShadow(x, y, bl, op);        
     }
-    createShadow(x=4,y=-4,bl=2,op=0.50){
+    createShadow(x=5.7,y=5.2,bl=2.0,op='0.50'){
         this.textArea.style.textShadow =`${x}px ${y}px ${bl}px rgba(0, 0, 0, ${op})`;
         this.viewCode(`${x}px ${y}px ${bl}px rgba(0, 0, 0, ${op})`);
+        console.log(x,y,bl,op);
+        console.log(this.factors);
+        
+        
     }
 
     viewCode(code){
