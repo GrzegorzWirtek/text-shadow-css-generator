@@ -11,10 +11,10 @@ export default class{
         window.addEventListener('resize', ()=>this.onResize());
         this.areaActualWidth = getComputedStyle(this.xArea).width;
         this.factors ={
-            xFactor: 0.64,
-            yFactor: 0.37,
-            blurFactor: 0.068,
-            opacityFactor: 0.5
+            xFactor: 0.73,
+            yFactor: 0.216,
+            blurFactor: 0.32,
+            opacityFactor: 0.1151
         }
         this.widthZipButton = 40;
         this.viewCode();
@@ -64,7 +64,7 @@ export default class{
         if(position >areaWidth) position = areaWidth;
         this.factors[factor] = (position-x)/(areaWidth-x);
         element.style.transform = `translateX(${areaWidth*(position/areaWidth)-x}px)`;
-        this.calculateShadowParameters();   
+        this.calculateShadowParameters();
     }
 
     zipMoveMobile(e, x, element, factor){
@@ -89,13 +89,9 @@ export default class{
         let op = (1-this.factors.opacityFactor*1).toFixed(2);
         this.createShadow(x, y, bl, op);        
     }
-    createShadow(x=5.7,y=5.2,bl=2.0,op='0.50'){
+    createShadow(x=9.2,y=11.4,bl=9.6,op=0.88){
         this.textArea.style.textShadow =`${x}px ${y}px ${bl}px rgba(0, 0, 0, ${op})`;
         this.viewCode(`${x}px ${y}px ${bl}px rgba(0, 0, 0, ${op})`);
-        console.log(x,y,bl,op);
-        console.log(this.factors);
-        
-        
     }
 
     viewCode(code){
