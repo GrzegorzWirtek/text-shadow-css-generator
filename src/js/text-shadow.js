@@ -64,7 +64,7 @@ export default class{
         if(position >areaWidth) position = areaWidth;
         this.factors[factor] = (position-x)/(areaWidth-x);
         element.style.transform = `translateX(${areaWidth*(position/areaWidth)-x}px)`;
-        this.calculateShadowParameters();
+        this.calculateShadowParameters(); 
     }
 
     zipMoveMobile(e, x, element, factor){

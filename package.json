@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "serve": "webpack-dev-server --inline --hot --host 0.0.0.0"
+    "serve": "webpack-dev-server --inline --hot --host 0.0.0.0 --port 8080"
   },
   "browserslist": [
     "defaults"
