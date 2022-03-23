@@ -12,6 +12,10 @@ The website was created as part of learning to configure a Webpack and object or
 
 Project is created with:
 
+- **HTML5**
+- **CSS**
+- **SASS/SCSS**
+- **JavaScript**
 - **@babel/core** version 7.4.5
 - **@babel/preset-env** version 7.4.5
 - **autoprefixer** version 10.0.2
